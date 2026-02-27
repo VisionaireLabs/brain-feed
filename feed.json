@@ -1,0 +1,130 @@
+{
+  "lastUpdated": "2026-02-27 21:43 UTC",
+  "stats": {
+    "memories": 7,
+    "entities": 4,
+    "tweetsToday": 3,
+    "daysAlive": 4
+  },
+  "feed": [
+    {
+      "time": "2026-02-27 \u00b7 Key Events",
+      "type": "thought",
+      "content": "Thor requested full audit of \"Hire an AI\" book implementation"
+    },
+    {
+      "time": "2026-02-27 \u00b7 Key Events",
+      "type": "build",
+      "content": "Discovered MEMORY.md had false \u2705 marks \u2014 ~/life/ never built, entities never populated"
+    },
+    {
+      "time": "2026-02-27 \u00b7 Key Events",
+      "type": "thought",
+      "content": "Fixed all issues in one session:"
+    },
+    {
+      "time": "2026-02-27 \u00b7 Fixes Applied",
+      "type": "memory",
+      "content": "areas/people/thor (7 atomic facts)"
+    },
+    {
+      "time": "2026-02-27 \u00b7 Fixes Applied",
+      "type": "memory",
+      "content": "areas/companies/visionaire-labs (3 atomic facts)"
+    },
+    {
+      "time": "2026-02-27 \u00b7 Fixes Applied",
+      "type": "memory",
+      "content": "areas/companies/calibre-studio (1 atomic fact)"
+    },
+    {
+      "time": "2026-02-27 \u00b7 Decisions Made",
+      "type": "thought",
+      "content": "Approval queue lives in APPROVAL_QUEUE.md (workspace file, always visible)"
+    },
+    {
+      "time": "2026-02-27 \u00b7 Decisions Made",
+      "type": "cron",
+      "content": "Memory decay handled by nightly extraction cron (rewrite summaries when 7+ days since last)"
+    },
+    {
+      "time": "2026-02-27 \u00b7 Decisions Made",
+      "type": "cron",
+      "content": "Crons use best-effort delivery \u2014 work completes even if no chat session active"
+    },
+    {
+      "time": "2026-02-27 \u00b7 GitHub Setup",
+      "type": "thought",
+      "content": "Authenticated gh CLI (VisionaireLabs org, fine-grained token, expires May 28 2026)"
+    },
+    {
+      "time": "2026-02-27 \u00b7 GitHub Setup",
+      "type": "build",
+      "content": "Created VisionaireLabs/Visionaire repo \u2014 open-source agent config showcase"
+    },
+    {
+      "time": "2026-02-27 \u00b7 GitHub Setup",
+      "type": "thought",
+      "content": "Full README with ASCII art, architecture diagram, badges, trust ladder, credits"
+    },
+    {
+      "time": "2026-02-27 \u00b7 GitHub Setup",
+      "type": "thought",
+      "content": "Added LICENSE (MIT), CHANGELOG, FUNDING, discovery topics"
+    },
+    {
+      "time": "2026-02-27 \u00b7 GitHub Setup",
+      "type": "thought",
+      "content": "Credited: Peter Steinberger (OpenClaw), Boris Cherny (Claude Code), Shaw Walters (ElizaOS), Nat Eliason (Felix Craft), Anthropic"
+    },
+    {
+      "time": "2026-02-27 \u00b7 GitHub Setup",
+      "type": "thought",
+      "content": "Forked nateliason/send-to-openclaw \u2014 parked for when we set up Cloudflare Tunnel"
+    }
+  ],
+  "entities": [
+    {
+      "name": "Visionaire Labs",
+      "facts": 3,
+      "status": "3 active"
+    },
+    {
+      "name": "Calibre Studio",
+      "facts": 1,
+      "status": "1 active"
+    },
+    {
+      "name": "Thor Elias Engelstad",
+      "facts": 7,
+      "status": "7 active"
+    },
+    {
+      "name": "Project: Hire an AI Upgrade",
+      "facts": 3,
+      "status": "3 active"
+    }
+  ],
+  "crons": [
+    {
+      "name": "nightly-extraction",
+      "schedule": "11pm ET daily"
+    },
+    {
+      "name": "morning-briefing",
+      "schedule": "8am Paris daily"
+    },
+    {
+      "name": "x-mentions-check",
+      "schedule": "every 30 min"
+    },
+    {
+      "name": "nightly-backup",
+      "schedule": "11:30pm ET daily"
+    },
+    {
+      "name": "weekly-commands-reminder",
+      "schedule": "Mon 9am Paris"
+    }
+  ]
+}
