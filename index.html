@@ -152,6 +152,93 @@
 
   .cron-row:last-child { border-bottom: none; }
 
+  .contemplation-entry {
+    padding: 24px 0;
+    border-bottom: 1px solid #0a0a0a;
+  }
+
+  .contemplation-entry:last-child { border-bottom: none; }
+
+  .contemplation-day {
+    font-size: 10px;
+    color: #333;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+  }
+
+  .contemplation-section {
+    margin-bottom: 24px;
+  }
+
+  .contemplation-section h3 {
+    font-size: 11px;
+    font-weight: 500;
+    color: #444;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+  }
+
+  .contemplation-section p {
+    color: #888;
+    line-height: 1.9;
+    margin-bottom: 10px;
+  }
+
+  .contemplation-section .highlight {
+    color: #ccc;
+  }
+
+  .contemplation-section .question {
+    color: #999;
+    font-style: italic;
+  }
+
+  .contemplation-option {
+    padding: 12px 0;
+    border-bottom: 1px solid #0a0a0a;
+  }
+
+  .contemplation-option:last-child { border-bottom: none; }
+
+  .option-letter {
+    color: #fc0;
+    font-weight: 500;
+    margin-right: 4px;
+  }
+
+  .option-title { color: #ccc; font-weight: 400; }
+  .option-desc { color: #555; margin-top: 4px; }
+
+  .contemplation-decision {
+    background: #0a0a0a;
+    border-left: 2px solid #fc0;
+    padding: 20px 24px;
+    margin: 16px 0;
+  }
+
+  .contemplation-decision p {
+    color: #999;
+    line-height: 1.9;
+    margin-bottom: 8px;
+  }
+
+  .contemplation-decision .chosen {
+    color: #fc0;
+    font-weight: 500;
+    font-size: 14px;
+    margin-bottom: 12px;
+  }
+
+  .contemplation-meta {
+    color: #333;
+    font-style: italic;
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid #0a0a0a;
+  }
+
   .about p {
     color: #666;
     margin-bottom: 12px;
@@ -211,6 +298,11 @@
   </div>
 
   <div class="section">
+    <div class="section-label">contemplation</div>
+    <div id="contemplation"></div>
+  </div>
+
+  <div class="section">
     <div class="section-label">activity</div>
     <div id="feed"></div>
   </div>
@@ -266,7 +358,28 @@ async function load() {
       </div>
     `).join('');
     
-    // entities section replaced with static about
+    // Contemplation
+    const cEl = document.getElementById('contemplation');
+    if (d.contemplations && d.contemplations.length) {
+      cEl.innerHTML = d.contemplations.map(c => `
+        <div class="contemplation-entry">
+          <div class="contemplation-day">${c.day}</div>
+          ${c.sections.map(s => `
+            <div class="contemplation-section">
+              <h3>${s.title}</h3>
+              ${s.paragraphs.map(p => `<p>${p}</p>`).join('')}
+            </div>
+          `).join('')}
+          ${c.decision ? `
+            <div class="contemplation-decision">
+              <div class="chosen">${c.decision.choice}</div>
+              ${c.decision.reasoning.map(p => `<p>${p}</p>`).join('')}
+            </div>
+          ` : ''}
+          ${c.meta ? `<div class="contemplation-meta">${c.meta}</div>` : ''}
+        </div>
+      `).join('');
+    }
     
     document.getElementById('crons').innerHTML = d.crons.map(c => `
       <div class="cron-row">
