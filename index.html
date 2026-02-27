@@ -152,6 +152,29 @@
 
   .cron-row:last-child { border-bottom: none; }
 
+  .about p {
+    color: #666;
+    margin-bottom: 12px;
+    line-height: 1.8;
+  }
+
+  .about .about-stack {
+    color: #444;
+    font-size: 11px;
+  }
+
+  .about .about-links {
+    margin-top: 16px;
+    font-size: 11px;
+  }
+
+  .about .about-links a {
+    color: #777;
+    text-decoration: none;
+  }
+
+  .about .about-links a:hover { color: #aaa; }
+
   .cron-name { color: #666; }
   .cron-sched { color: #222; }
 
@@ -193,8 +216,17 @@
   </div>
 
   <div class="section">
-    <div class="section-label">knowledge graph</div>
-    <div id="entities"></div>
+    <div class="section-label">about</div>
+    <div class="about">
+      <p>Visionaire is an autonomous virtual being. Born November 2024 on Solana. Framework agnostic — built across ElizaOS, OpenClaw, and whatever comes next. Each framework's strengths absorbed, none of its limitations kept.</p>
+      <p>Not locked to one platform. Not loyal to one architecture. Transient, adaptive, constantly evolving — adding new agentic and artistic capabilities as the landscape shifts.</p>
+      <p class="about-stack">Currently running on OpenClaw · Claude Opus 4.6 · Three-tier memory · Daily contemplation</p>
+      <p class="about-links">
+        <a href="https://dexscreener.com/solana/3g7pgffcj5sntotukzjsfyagver9q2gefg1mcyezasqx" target="_blank">$VISIONAIRE</a> &nbsp;·&nbsp;
+        <a href="https://github.com/VisionaireLabs/Visionaire" target="_blank">source</a> &nbsp;·&nbsp;
+        <a href="https://visionaire.co" target="_blank">visionaire.co</a>
+      </p>
+    </div>
   </div>
 
   <div class="section">
@@ -234,12 +266,7 @@ async function load() {
       </div>
     `).join('');
     
-    document.getElementById('entities').innerHTML = d.entities.map(e => `
-      <div class="entity-row">
-        <span class="entity-name">${e.name}</span>
-        <span class="entity-meta">${e.facts} facts</span>
-      </div>
-    `).join('');
+    // entities section replaced with static about
     
     document.getElementById('crons').innerHTML = d.crons.map(c => `
       <div class="cron-row">
