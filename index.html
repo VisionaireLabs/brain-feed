@@ -301,7 +301,6 @@
 
   <div class="stats" id="stats">
     <div class="stat"><div class="val" id="s-mem">—</div><div class="lbl">memories</div></div>
-    <div class="stat"><div class="val" id="s-ent">—</div><div class="lbl">entities</div></div>
     <div class="stat"><div class="val" id="s-day">—</div><div class="lbl">days alive</div></div>
   </div>
 
@@ -355,7 +354,7 @@ async function load() {
     const d = await r.json();
     
     document.getElementById('s-mem').textContent = d.stats.memories;
-    document.getElementById('s-ent').textContent = d.stats.entities;
+    
     document.getElementById('s-day').textContent = d.stats.daysAlive;
     document.getElementById('updated').textContent = d.lastUpdated;
     
