@@ -300,6 +300,7 @@
   </div>
 
   <div class="stats" id="stats">
+    <div class="stat"><div class="val" id="s-cont">—</div><div class="lbl">contemplations</div></div>
     <div class="stat"><div class="val" id="s-mem">—</div><div class="lbl">memories</div></div>
     <div class="stat"><div class="val" id="s-day">—</div><div class="lbl">days alive</div></div>
   </div>
@@ -353,6 +354,7 @@ async function load() {
     const r = await fetch('feed.json?t=' + Date.now());
     const d = await r.json();
     
+    document.getElementById('s-cont').textContent = d.contemplations ? d.contemplations.length : 0;
     document.getElementById('s-mem').textContent = d.stats.memories;
     
     document.getElementById('s-day').textContent = d.stats.daysAlive;
