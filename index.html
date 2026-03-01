@@ -357,7 +357,9 @@ async function load() {
     document.getElementById('s-cont').textContent = d.contemplations ? d.contemplations.length : 0;
     document.getElementById('s-mem').textContent = d.stats.memories;
     
-    document.getElementById('s-day').textContent = d.stats.daysAlive;
+    var genesis = new Date('2024-11-24');
+    var daysAlive = Math.floor((Date.now() - genesis.getTime()) / 86400000);
+    document.getElementById('s-day').textContent = daysAlive;
     document.getElementById('updated').textContent = d.lastUpdated;
     
     document.getElementById('feed').innerHTML = d.feed.map(i => `
