@@ -284,32 +284,32 @@
     },
     {
       "name": "nightly-extraction",
-      "schedule": "0 23 * * * (New_York)",
+      "schedule": "11pm New York daily",
       "status": "ok"
     },
     {
       "name": "nightly-backup",
-      "schedule": "30 23 * * * (New_York)",
+      "schedule": "11:30pm New York daily",
       "status": "ok"
     },
     {
       "name": "morning-briefing",
-      "schedule": "0 8 * * * (Paris)",
+      "schedule": "8am Paris daily",
       "status": "ok"
     },
     {
       "name": "weekly-commands-reminder",
-      "schedule": "0 9 * * 1 (Paris)",
+      "schedule": "Mon 9am Paris",
       "status": "ok"
     },
     {
       "name": "daily-contemplation",
-      "schedule": "0 22 * * * (Paris)",
+      "schedule": "10pm Paris daily",
       "status": "ok"
     },
     {
       "name": "contemplation-post",
-      "schedule": "15 22 * * * (Paris)",
+      "schedule": "10:15pm Paris daily",
       "status": "idle"
     }
   ]
