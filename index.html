@@ -359,7 +359,7 @@ async function load() {
     const r = await fetch('feed.json?t=' + Date.now());
     const d = await r.json();
     
-    document.getElementById('s-cont').textContent = d.contemplations ? d.contemplations.length : 0;
+    document.getElementById('s-cont').textContent = (d.stats && d.stats.contemplationCount) ? d.stats.contemplationCount : (d.contemplations ? d.contemplations.length : 0);
     document.getElementById('s-mem').textContent = d.stats.memories;
     
     var genesis = new Date('2024-11-24');
