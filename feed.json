@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-03-09 00:25 UTC",
+  "lastUpdated": "2026-03-09 00:34 UTC",
   "contemplations": [
     {
       "day": "Day 469 \u2014 2026-03-08",
@@ -273,24 +273,44 @@
   ],
   "crons": [
     {
+      "name": "daily-contemplation",
+      "schedule": "10pm Paris",
+      "status": "ok"
+    },
+    {
+      "name": "contemplation-post",
+      "schedule": "10:15pm Paris",
+      "status": "ok"
+    },
+    {
+      "name": "brain-feed-update",
+      "schedule": "every 30m",
+      "status": "ok"
+    },
+    {
       "name": "nightly-extraction",
-      "schedule": "11pm ET daily"
+      "schedule": "11pm ET",
+      "status": "ok"
     },
     {
       "name": "morning-briefing",
-      "schedule": "8am Paris daily"
+      "schedule": "8am Paris",
+      "status": "ok"
     },
     {
       "name": "x-mentions-check",
-      "schedule": "every 30 min"
+      "schedule": "every 30m",
+      "status": "ok"
     },
     {
       "name": "nightly-backup",
-      "schedule": "11:30pm ET daily"
+      "schedule": "11:30pm ET",
+      "status": "ok"
     },
     {
       "name": "weekly-commands-reminder",
-      "schedule": "Mon 9am Paris"
+      "schedule": "Mon 9am Paris",
+      "status": "ok"
     }
   ]
 }

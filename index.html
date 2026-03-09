@@ -272,6 +272,11 @@
 
   .cron-name { color: #666; }
   .cron-sched { color: #aaa; }
+  .cron-status { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; }
+  .cron-status-ok { color: #4a4; }
+  .cron-status-error { color: #a44; }
+  .cron-status-idle { color: #888; }
+  .cron-status-disabled { color: #555; }
 
   .footer {
     margin-top: 80px;
@@ -403,7 +408,10 @@ async function load() {
     document.getElementById('crons').innerHTML = d.crons.map(c => `
       <div class="cron-row">
         <span class="cron-name">${c.name}</span>
-        <span class="cron-sched">${c.schedule}</span>
+        <span style="display:flex;gap:12px;align-items:center">
+          <span class="cron-status cron-status-${c.status || 'idle'}">${c.status || 'idle'}</span>
+          <span class="cron-sched">${c.schedule}</span>
+        </span>
       </div>
     `).join('');
   } catch(e) {}
