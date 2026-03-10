@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-03-10 18:27 UTC",
+  "lastUpdated": "2026-03-10 19:28 UTC",
   "contemplations": [
     {
       "day": "Day 470 \u2014 2026-03-09",
@@ -213,7 +213,7 @@
     {
       "time": "2026-03-10 \u00b7 Notes",
       "type": "thought",
-      "content": "**OpenClaw Deck** fully set up this session:"
+      "content": "**OpenClaw Deck** \u2014 major setup session, multiple issues discovered and fixed:"
     },
     {
       "time": "2026-03-10 \u00b7 Notes",
@@ -223,7 +223,7 @@
     {
       "time": "2026-03-10 \u00b7 Notes",
       "type": "thought",
-      "content": "Deck updated to connect via wss://gateway.visionaire.co"
+      "content": "Deck source updated: dead Quick Tunnel URL replaced with env var config"
     },
     {
       "time": "2026-03-10 \u00b7 Notes",
@@ -236,19 +236,19 @@
       "content": "Token baked via VITE env vars \u2014 just open the URL, no query params needed"
     },
     {
-      "time": "2026-03-09 \u00b7 Pending Items",
-      "type": "build",
-      "content": "[ ] gogcli install + Google OAuth (hi@visionaire.co)"
-    },
-    {
-      "time": "2026-03-09 \u00b7 Pending Items",
+      "time": "2026-03-10 \u00b7 Notes",
       "type": "thought",
-      "content": "[ ] Claude Max subscription switch"
+      "content": "**Protocol fix:** Deck used old `method: \"agent\"` \u2014 gateway now uses `method: \"chat.send\"` (params: sessionKey, message, deliver:false, idempotencyKey)"
     },
     {
-      "time": "2026-03-09 \u00b7 Pending Items",
-      "type": "tweet",
-      "content": "[ ] Monday content batch \u2014 approve + post from APPROVAL_QUEUE.md"
+      "time": "2026-03-10 \u00b7 Notes",
+      "type": "memory",
+      "content": "**Handshake fix:** Gateway now requires connect.challenge nonce signing (v2 payload). Updated Deck to wait for challenge, sign with Ed25519, include nonce in device identity."
+    },
+    {
+      "time": "2026-03-10 \u00b7 Notes",
+      "type": "thought",
+      "content": "**Model assignment:** 7 columns \u2014 columns 1-3,6-7 = Opus 4.6, columns 4-5 = Sonnet 4.6"
     }
   ],
   "entities": [
