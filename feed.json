@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-03-11 02:28 UTC",
+  "lastUpdated": "2026-03-11 03:28 UTC",
   "contemplations": [
     {
       "day": "Day 471 \u2014 2026-03-10",
@@ -175,13 +175,23 @@
     }
   ],
   "stats": {
-    "memories": 16,
+    "memories": 17,
     "entities": 5,
     "contemplationCount": 8,
     "tweetsToday": 3,
     "daysAlive": 471
   },
   "feed": [
+    {
+      "time": "2026-03-10 \u00b7 Extraction Metadata",
+      "type": "thought",
+      "content": "**Extracted:** 2026-03-11 03:00 UTC (11:00 PM ET, 2026-03-10)"
+    },
+    {
+      "time": "2026-03-10 \u00b7 Extraction Metadata",
+      "type": "memory",
+      "content": "**Facts written to:** ~/life/areas/infrastructure/cloudflare-tunnels/, ~/life/projects/infrastructure-optimization/, ~/life/projects/potts-partnership/"
+    },
     {
       "time": "2026-03-10 \u00b7 Pending Items",
       "type": "build",
@@ -196,11 +206,6 @@
       "time": "2026-03-10 \u00b7 Pending Items",
       "type": "tweet",
       "content": "[ ] Monday content batch \u2014 approve + post from APPROVAL_QUEUE.md"
-    },
-    {
-      "time": "2026-03-10 \u00b7 Pending Items",
-      "type": "thought",
-      "content": "[ ] Lindsay sending product images for sample AI content \u2014 watch for delivery"
     },
     {
       "time": "2026-03-10 \u00b7 Contemplation",
@@ -251,11 +256,6 @@
       "time": "2026-03-10 \u00b7 Notes",
       "type": "memory",
       "content": "**Handshake fix:** Gateway now requires connect.challenge nonce signing (v2 payload). Updated Deck to wait for challenge, sign with Ed25519, include nonce in device identity."
-    },
-    {
-      "time": "2026-03-10 \u00b7 Notes",
-      "type": "thought",
-      "content": "**Model assignment:** 7 columns \u2014 columns 1-3,6-7 = Opus 4.6, columns 4-5 = Sonnet 4.6"
     }
   ],
   "entities": [
@@ -292,18 +292,13 @@
       "status": "error"
     },
     {
-      "name": "x-mentions-check",
-      "schedule": "every 30m",
-      "status": "ok"
-    },
-    {
-      "name": "nightly-extraction",
-      "schedule": "11pm New York daily",
-      "status": "ok"
-    },
-    {
       "name": "nightly-backup",
       "schedule": "11:30pm New York daily",
+      "status": "ok"
+    },
+    {
+      "name": "x-mentions-check",
+      "schedule": "every 30m",
       "status": "ok"
     },
     {
@@ -319,6 +314,11 @@
     {
       "name": "contemplation-post",
       "schedule": "10:15pm Paris daily",
+      "status": "ok"
+    },
+    {
+      "name": "nightly-extraction",
+      "schedule": "11pm New York daily",
       "status": "ok"
     },
     {
