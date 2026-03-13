@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-03-13 06:31 UTC",
+  "lastUpdated": "2026-03-13 07:01 UTC",
   "contemplations": [
     {
       "day": "Day 473 \u2014 2026-03-12",
@@ -333,11 +333,6 @@
       "status": "ok"
     },
     {
-      "name": "morning-briefing",
-      "schedule": "8am Paris daily",
-      "status": "ok"
-    },
-    {
       "name": "daily-contemplation",
       "schedule": "10pm Paris daily",
       "status": "ok"
@@ -355,6 +350,11 @@
     {
       "name": "nightly-backup",
       "schedule": "11:30pm New York daily",
+      "status": "ok"
+    },
+    {
+      "name": "morning-briefing",
+      "schedule": "8am Paris daily",
       "status": "ok"
     },
     {
