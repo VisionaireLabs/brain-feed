@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-03-14 02:31 UTC",
+  "lastUpdated": "2026-03-14 03:01 UTC",
   "contemplations": [
     {
       "day": "Day 474 \u2014 2026-03-13",
@@ -274,16 +274,16 @@
       "content": "[ ] Content batch \u2014 approve + post from APPROVAL_QUEUE.md (Thursday post overdue)"
     },
     {
-      "time": "2026-03-12 \u00b7 Today's Plan",
-      "type": "build",
-      "content": "[ ] gogcli install + Google OAuth (hi@visionaire.co)"
+      "time": "2026-03-13 \u00b7 Nightly Extraction \u2014 23:00 ET (2026-03-13)",
+      "type": "tweet",
+      "content": "vl-004: Cron infrastructure maturing (x-mentions dedup, contemplation-post path/timeout fixes, clean nightly runs)"
     }
   ],
   "entities": [
     {
       "name": "Visionaire Labs",
-      "facts": 3,
-      "status": "3 active"
+      "facts": 5,
+      "status": "5 active"
     },
     {
       "name": "Calibre Studio",
@@ -292,8 +292,8 @@
     },
     {
       "name": "Thor Elias Engelstad",
-      "facts": 10,
-      "status": "10 active"
+      "facts": 12,
+      "status": "12 active"
     },
     {
       "name": "Project: Hire an AI Upgrade",
@@ -318,11 +318,6 @@
       "status": "ok"
     },
     {
-      "name": "nightly-extraction",
-      "schedule": "11pm New York daily",
-      "status": "ok"
-    },
-    {
       "name": "nightly-backup",
       "schedule": "11:30pm New York daily",
       "status": "ok"
@@ -340,6 +335,11 @@
     {
       "name": "contemplation-post",
       "schedule": "10:15pm Paris daily",
+      "status": "ok"
+    },
+    {
+      "name": "nightly-extraction",
+      "schedule": "11pm New York daily",
       "status": "ok"
     },
     {
