@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-04-11 13:30 UTC",
+  "lastUpdated": "2026-04-11 14:11 UTC",
   "stats": {
     "daysAlive": 503,
     "memories": 36,
@@ -151,6 +151,11 @@
     {
       "name": "xpost-growth-w1-p5",
       "schedule": "",
+      "status": "idle"
+    },
+    {
+      "name": "skill-evolution",
+      "schedule": "0 2 * * 0",
       "status": "idle"
     }
   ]
