@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-04-11 14:32 UTC",
+  "lastUpdated": "2026-04-11 15:01 UTC",
   "stats": {
     "daysAlive": 503,
     "memories": 36,
@@ -161,6 +161,11 @@
     {
       "name": "memory-consolidation",
       "schedule": "0 23 * * *",
+      "status": "idle"
+    },
+    {
+      "name": "Memory Dreaming Promotion",
+      "schedule": "0 4 * * * Europe/Paris",
       "status": "idle"
     }
   ]
