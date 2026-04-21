@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-04-21 00:31 UTC",
+  "lastUpdated": "2026-04-21 01:00 UTC",
   "stats": {
     "daysAlive": 512,
     "memories": 47,
@@ -147,6 +147,11 @@
       "name": "Memory Dreaming Promotion",
       "schedule": "0 4 * * * Europe/Paris",
       "status": "ok"
+    },
+    {
+      "name": "turing-attention-research-reminder",
+      "schedule": "",
+      "status": "idle"
     }
   ]
 }
