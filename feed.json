@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-04-27 01:01 UTC",
+  "lastUpdated": "2026-04-27 01:30 UTC",
   "stats": {
     "daysAlive": 518,
     "memories": 58,
@@ -159,7 +159,7 @@
       "status": "ok"
     },
     {
-      "name": "bazaar-listing-check",
+      "name": "bazaar-check-t+30",
       "schedule": "",
       "status": "idle"
     }
