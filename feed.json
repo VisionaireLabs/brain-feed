@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-04-27 07:30 UTC",
+  "lastUpdated": "2026-04-27 08:00 UTC",
   "stats": {
     "daysAlive": 519,
     "memories": 59,
@@ -151,7 +151,7 @@
     {
       "name": "karpathy-watch",
       "schedule": "30 9 * * 1 Europe/Paris",
-      "status": "idle"
+      "status": "ok"
     },
     {
       "name": "vesting-snapshot-refresh",
