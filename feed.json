@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-05-19 13:30 UTC",
+  "lastUpdated": "2026-05-19 14:00 UTC",
   "stats": {
     "daysAlive": 541,
     "memories": 66,
@@ -181,7 +181,7 @@
     {
       "name": "x-mentions-check",
       "schedule": "",
-      "status": "idle"
+      "status": "ok"
     }
   ]
 }
