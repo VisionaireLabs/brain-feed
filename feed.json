@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-05-23 11:30 UTC",
+  "lastUpdated": "2026-05-23 12:00 UTC",
   "stats": {
     "daysAlive": 545,
     "memories": 67,
@@ -181,6 +181,11 @@
     {
       "name": "x-mentions-check",
       "schedule": "",
+      "status": "idle"
+    },
+    {
+      "name": "cortex-protocol-drift",
+      "schedule": "0 10 * * 1 Europe/Paris",
       "status": "idle"
     }
   ]
