@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-02 11:30 UTC",
+  "lastUpdated": "2026-06-02 12:00 UTC",
   "stats": {
     "daysAlive": 555,
     "memories": 74,
@@ -215,6 +215,16 @@
     },
     {
       "name": "multica-daemon-watchdog",
+      "schedule": "",
+      "status": "idle"
+    },
+    {
+      "name": "agenc-bounty-chase",
+      "schedule": "",
+      "status": "idle"
+    },
+    {
+      "name": "agenc-task-watcher",
       "schedule": "",
       "status": "idle"
     }
