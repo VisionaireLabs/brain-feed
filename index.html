@@ -274,14 +274,14 @@
   .entry-item:hover { background: #050505; }
   .entry-item.active { border-left-color: #444; background: #080808; }
 
-  .entry-date { font-size: 9px; color: #555; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px; }
-  .entry-item.active .entry-date { color: #777; }
+  .entry-date { font-size: 9px; color: #777; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px; }
+  .entry-item.active .entry-date { color: #aaa; }
   .entry-surfaced { font-size: 8px; color: #444; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 5px; font-style: italic; }
   .entry-item.active .entry-surfaced { color: #555; }
-  .entry-title { font-size: 11px; color: #777; line-height: 1.5; margin-bottom: 5px; font-weight: 400; }
-  .entry-item.active .entry-title { color: #bbb; }
-  .entry-preview { font-size: 10px; color: #444; line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-  .entry-item.active .entry-preview { color: #666; }
+  .entry-title { font-size: 11px; color: #999; line-height: 1.5; margin-bottom: 5px; font-weight: 400; }
+  .entry-item.active .entry-title { color: #ddd; }
+  .entry-preview { font-size: 10px; color: #666; line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .entry-item.active .entry-preview { color: #999; }
 
   .cont-reading { flex: 1; overflow-y: auto; padding: 56px; }
   .cont-reading::-webkit-scrollbar { width: 2px; }
@@ -635,7 +635,7 @@ async function loadDreams() {
       item.className = 'entry-item';
       item.dataset.slug = e.slug;
       item.innerHTML = `
-        <div class="entry-date">${e.dateFormatted} <span style="color:#333">· ${e.time}</span></div>
+        <div class="entry-date">${e.dateFormatted} <span style="color:#555">· ${e.time}</span></div>
         <div class="entry-preview">${e.preview}</div>
       `;
       item.addEventListener('click', () => selectDream(e.slug));
