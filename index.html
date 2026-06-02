@@ -519,7 +519,8 @@ async function loadFeed() {
         const ld = dreams[0];
         document.getElementById('section-dream').style.display = '';
         const dp = document.getElementById('dream-preview');
-        dp.innerHTML = `<div class="cont-preview-day">${ld.dateFormatted} · ${ld.timestamp}</div>` + marked.parse(ld.content);
+        const dreamBody = ld.content.replace(/^#[^\n]*\n\n?/, '');
+        dp.innerHTML = `<div class="cont-preview-day">${ld.dateFormatted} · ${ld.time}</div>` + marked.parse(dreamBody);
       }
     } catch(e) { /* dreams optional */ }
 
