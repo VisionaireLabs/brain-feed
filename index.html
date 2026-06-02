@@ -635,7 +635,7 @@ async function loadDreams() {
       item.className = 'entry-item';
       item.dataset.slug = e.slug;
       item.innerHTML = `
-        <div class="entry-date">${e.dateFormatted} · ${e.time}</div>
+        <div class="entry-date">${e.dateFormatted} <span style="color:#333">· ${e.time}</span></div>
         <div class="entry-preview">${e.preview}</div>
       `;
       item.addEventListener('click', () => selectDream(e.slug));
