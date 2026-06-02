@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-02 11:00 UTC",
+  "lastUpdated": "2026-06-02 11:30 UTC",
   "stats": {
     "daysAlive": 555,
     "memories": 74,
@@ -211,6 +211,11 @@
     {
       "name": "llms-txt-weekly-refresh",
       "schedule": "0 9 * * 1 America/New_York",
+      "status": "idle"
+    },
+    {
+      "name": "multica-daemon-watchdog",
+      "schedule": "",
       "status": "idle"
     }
   ]
