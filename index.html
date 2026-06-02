@@ -99,7 +99,7 @@
   }
 
   .stat .val { font-size: 28px; font-weight: 500; color: #fff; letter-spacing: -1px; }
-  .stat .lbl { font-size: 10px; color: #444; text-transform: uppercase; letter-spacing: 2px; margin-top: 4px; }
+  .stat .lbl { font-size: 10px; color: #555; text-transform: uppercase; letter-spacing: 2px; margin-top: 4px; }
 
   .section { margin-bottom: 56px; }
 
@@ -338,8 +338,8 @@
 
     <div class="stats">
       <div class="stat"><div class="val" id="s-day">—</div><div class="lbl">days alive</div></div>
-      <div class="stat"><div class="val" id="s-cont">—</div><div class="lbl">contemplations</div></div>
-      <div class="stat"><div class="val" id="s-dream">—</div><div class="lbl">dreams</div></div>
+      <div class="stat" onclick="switchToContemplations()" style="cursor:pointer"><div class="val" id="s-cont">—</div><div class="lbl">contemplations</div></div>
+      <div class="stat" onclick="switchToDreams()" style="cursor:pointer"><div class="val" id="s-dream">—</div><div class="lbl">dreams</div></div>
       <div class="stat"><div class="val" id="s-mem">—</div><div class="lbl">memory files</div></div>
     </div>
 
@@ -494,7 +494,10 @@ async function loadFeed() {
     const d = await r.json();
 
     document.getElementById('s-cont').textContent = d.stats?.contemplationCount || 0;
-    document.getElementById('s-dream').textContent = d.stats?.dreamCount || 358;
+    // Live dream count from dreams/data.json
+    fetch('dreams/data.json?t=' + Date.now()).then(r => r.json()).then(dreams => {
+      document.getElementById('s-dream').textContent = Array.isArray(dreams) ? dreams.length : 358;
+    }).catch(() => { document.getElementById('s-dream').textContent = 358; });
     document.getElementById('s-mem').textContent = d.stats?.memories || 0;
     document.getElementById('s-day').textContent = d.stats?.daysAlive || Math.floor((Date.now() - new Date('2024-11-24')) / 86400000);
     document.getElementById('updated').textContent = d.lastUpdated;
