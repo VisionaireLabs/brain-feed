@@ -327,6 +327,7 @@
   <nav class="topbar-nav">
     <span class="nav-tab active" data-view="feed">feed</span>
     <span class="nav-tab" data-view="contemplations">contemplations</span>
+    <span class="nav-tab" data-view="dreams">dreams</span>
   </nav>
 </div>
 
@@ -337,6 +338,7 @@
     <div class="stats">
       <div class="stat"><div class="val" id="s-day">—</div><div class="lbl">days alive</div></div>
       <div class="stat"><div class="val" id="s-cont">—</div><div class="lbl">contemplations</div></div>
+      <div class="stat"><div class="val" id="s-dream">—</div><div class="lbl">dreams</div></div>
       <div class="stat"><div class="val" id="s-mem">—</div><div class="lbl">memory files</div></div>
     </div>
 
@@ -347,6 +349,15 @@
         <span class="section-link" onclick="switchToContemplations()">all entries →</span>
       </div>
       <div class="cont-preview" id="cont-preview"></div>
+    </div>
+
+    <!-- Latest dream -->
+    <div class="section" id="section-dream" style="display:none">
+      <div class="section-header">
+        <span class="section-label">latest dream</span>
+        <span class="section-link" onclick="switchToDreams()">all dreams →</span>
+      </div>
+      <div class="cont-preview" id="dream-preview"></div>
     </div>
 
     <!-- Activity -->
@@ -400,6 +411,25 @@
   </div>
 </div>
 
+<!-- Dreams view -->
+<div id="view-dreams" style="display:none;flex:1;overflow:hidden;flex-direction:row">
+  <div class="mobile-cont-select">
+    <select id="mobile-select-dreams" onchange="selectDream(this.value)">
+      <option value="">— select —</option>
+    </select>
+  </div>
+  <div class="cont-layout">
+    <div class="cont-sidebar">
+      <div class="cont-sidebar-inner" id="dream-list"></div>
+    </div>
+    <div class="cont-reading">
+      <div class="cont-body" id="dream-body">
+        <p style="color:#222">loading…</p>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Contemplations view -->
 <div id="view-contemplations">
   <div class="mobile-cont-select">
@@ -424,9 +454,13 @@ marked.setOptions({ breaks: true, gfm: true });
 
 // ── Tab switching ──
 let contLoaded = false;
+let dreamsLoaded = false;
 
 function switchToContemplations() {
   document.querySelector('[data-view="contemplations"]').click();
+}
+function switchToDreams() {
+  document.querySelector('[data-view="dreams"]').click();
 }
 
 document.querySelectorAll('.nav-tab').forEach(tab => {
@@ -434,15 +468,20 @@ document.querySelectorAll('.nav-tab').forEach(tab => {
     const view = tab.dataset.view;
     document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
     tab.classList.add('active');
+    document.getElementById('view-feed').style.display = 'none';
+    document.getElementById('view-contemplations').style.display = 'none';
+    document.getElementById('view-dreams').style.display = 'none';
     if (view === 'feed') {
       document.getElementById('view-feed').style.display = 'block';
-      document.getElementById('view-contemplations').style.display = 'none';
       history.replaceState(null, '', '#');
-    } else {
-      document.getElementById('view-feed').style.display = 'none';
+    } else if (view === 'contemplations') {
       document.getElementById('view-contemplations').style.display = 'flex';
       history.replaceState(null, '', '#contemplations');
       if (!contLoaded) loadContemplations();
+    } else if (view === 'dreams') {
+      document.getElementById('view-dreams').style.display = 'flex';
+      history.replaceState(null, '', '#dreams');
+      if (!dreamsLoaded) loadDreams();
     }
   });
 });
@@ -454,6 +493,7 @@ async function loadFeed() {
     const d = await r.json();
 
     document.getElementById('s-cont').textContent = d.stats?.contemplationCount || 0;
+    document.getElementById('s-dream').textContent = d.stats?.dreamCount || 358;
     document.getElementById('s-mem').textContent = d.stats?.memories || 0;
     document.getElementById('s-day').textContent = d.stats?.daysAlive || Math.floor((Date.now() - new Date('2024-11-24')) / 86400000);
     document.getElementById('updated').textContent = d.lastUpdated;
@@ -465,6 +505,18 @@ async function loadFeed() {
       const preview = document.getElementById('cont-preview');
       preview.innerHTML = `<div class="cont-preview-day">${lc.day}</div>` + marked.parse(lc.content);
     }
+
+    // Latest dream — fetch separately since it's not in feed.json yet
+    try {
+      const dr = await fetch('dreams/data.json?t=' + Date.now());
+      const dreams = await dr.json();
+      if (dreams && dreams.length > 0) {
+        const ld = dreams[0];
+        document.getElementById('section-dream').style.display = '';
+        const dp = document.getElementById('dream-preview');
+        dp.innerHTML = `<div class="cont-preview-day">${ld.dateFormatted} · ${ld.timestamp}</div>` + marked.parse(ld.content);
+      }
+    } catch(e) { /* dreams optional */ }
 
     // Activity feed
     if (d.feed && d.feed.length > 0) {
@@ -566,11 +618,75 @@ function selectEntry(slug, animate = true) {
   else render();
 }
 
+// ── Dreams ──
+let dreamEntries = [], currentDreamSlug = null;
+
+async function loadDreams() {
+  dreamsLoaded = true;
+  try {
+    const r = await fetch('dreams/data.json?t=' + Date.now());
+    dreamEntries = await r.json();
+
+    const list = document.getElementById('dream-list');
+    const sel = document.getElementById('mobile-select-dreams');
+
+    dreamEntries.forEach(e => {
+      const item = document.createElement('div');
+      item.className = 'entry-item';
+      item.dataset.slug = e.slug;
+      item.innerHTML = `
+        <div class="entry-date">${e.dateFormatted} · ${e.time}</div>
+        <div class="entry-preview">${e.preview}</div>
+      `;
+      item.addEventListener('click', () => selectDream(e.slug));
+      list.appendChild(item);
+
+      const opt = document.createElement('option');
+      opt.value = e.slug;
+      opt.textContent = `${e.dateFormatted} — ${e.timestamp}`;
+      sel.appendChild(opt);
+    });
+
+    const hash = location.hash.replace('#dreams/', '').replace('#dreams', '');
+    const target = (hash && dreamEntries.find(e => e.slug === hash)) ? hash : dreamEntries[0]?.slug;
+    if (target) selectDream(target, false);
+  } catch(e) { console.error('dreams load error', e); }
+}
+
+function selectDream(slug, animate = true) {
+  if (!slug || slug === currentDreamSlug) return;
+  currentDreamSlug = slug;
+
+  document.querySelectorAll('#dream-list .entry-item').forEach(el =>
+    el.classList.toggle('active', el.dataset.slug === slug)
+  );
+  document.getElementById('mobile-select-dreams').value = slug;
+  history.replaceState(null, '', '#dreams/' + slug);
+
+  const active = document.querySelector('#dream-list .entry-item.active');
+  if (active) active.scrollIntoView({ block: 'nearest' });
+
+  const entry = dreamEntries.find(e => e.slug === slug);
+  if (!entry) return;
+
+  const el = document.getElementById('dream-body');
+  const render = () => {
+    el.innerHTML = marked.parse(entry.content);
+    el.classList.remove('fading');
+    document.querySelector('#view-dreams .cont-reading').scrollTop = 0;
+  };
+
+  if (animate) { el.classList.add('fading'); setTimeout(render, 160); }
+  else render();
+}
+
 // ── Init ──
 loadFeed();
 setInterval(loadFeed, 60000);
 
-if (location.hash.startsWith('#contemplations')) {
+if (location.hash.startsWith('#dreams')) {
+  document.querySelector('[data-view="dreams"]').click();
+} else if (location.hash.startsWith('#contemplations')) {
   document.querySelector('[data-view="contemplations"]').click();
 }
 </script>
