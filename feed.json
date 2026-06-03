@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-03 14:30 UTC",
+  "lastUpdated": "2026-06-03 15:00 UTC",
   "stats": {
     "daysAlive": 556,
     "memories": 76,
@@ -230,7 +230,7 @@
     },
     {
       "name": "agenc-big-task-watcher",
-      "schedule": "",
+      "schedule": "0 9 * * * Europe/Paris",
       "status": "idle"
     },
     {
