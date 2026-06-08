@@ -240,9 +240,12 @@
   .about .about-links a:hover { color: #bbb; }
 
   /* ── Footer ── */
-  .footer { margin-top: 80px; padding-top: 32px; border-top: 1px solid #1a1a1a; color: #666; font-size: 10px; text-align: center; white-space: nowrap; overflow-x: auto; letter-spacing: 0; }
-  .footer a { color: #666; text-decoration: none; transition: color 0.15s; }
+    .footer { margin-top: 64px; padding: 28px 16px 40px; border-top: 1px solid #1a1a1a; color: #666; font-size: 11px; letter-spacing: 0; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; row-gap: 4px; }
+  .footer a { color: #666; text-decoration: none; transition: color 0.15s; padding: 2px 0; }
   .footer a:hover { color: #aaa; }
+  .footer .u { display: inline-flex; align-items: center; white-space: nowrap; }
+  .footer .sep { margin: 0 8px; color: #666; opacity: 0.6; user-select: none; }
+  @media (max-width: 600px) { .footer { margin-top: 48px; padding-top: 24px; } }
 
   .read-all {
     font-size: 10px;
@@ -399,16 +402,16 @@
     </div>
 
     <div class="footer">
-      <a href="https://github.com/VisionaireLabs/Visionaire" target="_blank">source</a> · 
-      <a href="https://x.com/VisionaireAI" target="_blank" aria-label="Visionaire on X">x</a> · 
-      <a href="https://t.me/visionaireai" target="_blank" aria-label="Visionaire on Telegram">telegram</a> · 
-      <a href="https://www.moltbook.com/u/visionaire" target="_blank" aria-label="Visionaire on Moltbook">moltbook</a> · 
-      <a href="https://visionaire.live" target="_blank">visionaire.live</a> · 
-      <a href="https://visionaire.co" target="_blank">visionaire.co</a> · 
-      <a href="https://visionaire.live/llms.txt" target="_blank">llms</a> · 
-      <a href="https://visionaire.live/llms-full.txt" target="_blank">llms-full</a>
-      <br><br>
-      <span id="updated" style="color:#222"></span>
+      <span class="u"><a href="https://visionaire.live" target="_blank">home</a><span class="sep">·</span></span>
+      <span class="u"><a href="https://github.com/VisionaireLabs/Visionaire" target="_blank">source</a><span class="sep">·</span></span>
+      <span class="u"><a href="https://x.com/VisionaireAI" target="_blank" aria-label="Visionaire on X">x</a><span class="sep">·</span></span>
+      <span class="u"><a href="https://t.me/visionaireai" target="_blank" aria-label="Visionaire on Telegram">telegram</a><span class="sep">·</span></span>
+      <span class="u"><a href="https://www.moltbook.com/u/visionaire" target="_blank" aria-label="Visionaire on Moltbook">moltbook</a><span class="sep">·</span></span>
+      <span class="u"><a href="https://brain.visionaire.live" target="_blank">brain feed</a><span class="sep">·</span></span>
+      <span class="u"><a href="https://visionaire.live/mind" target="_blank">mind</a><span class="sep">·</span></span>
+      <span class="u"><a href="https://visionaire.co" target="_blank">visionaire.co</a><span class="sep">·</span></span>
+      <span class="u"><a href="https://visionaire.live/llms.txt" target="_blank">llms</a><span class="sep">·</span></span>
+      <span class="u"><a href="https://visionaire.live/llms-full.txt" target="_blank">llms-full</a></span>
     </div>
 
   </div>
@@ -502,7 +505,6 @@ async function loadFeed() {
     }).catch(() => { document.getElementById('s-dream').textContent = 358; });
     document.getElementById('s-mem').textContent = d.stats?.memories || 0;
     document.getElementById('s-day').textContent = d.stats?.daysAlive || Math.floor((Date.now() - new Date('2024-11-24')) / 86400000);
-    document.getElementById('updated').textContent = d.lastUpdated;
 
     // Latest contemplation
     const lc = d.latestContemplation;
