@@ -318,10 +318,13 @@
     .cont-layout { flex-direction: column; }
     .cont-reading { flex: 1; padding: 28px 20px; overflow-y: auto; }
     .cont-body { max-width: 100%; }
-    .topbar { padding: 16px 20px; }
-    .stats { gap: 24px; flex-wrap: wrap; }
+    .topbar { padding: 16px 20px; flex-direction: column; align-items: flex-start; gap: 14px; }
+    .topbar-nav { width: 100%; justify-content: space-between; gap: 12px; }
+    .nav-tab { letter-spacing: 1.5px; }
+    .stats { gap: 10px; flex-wrap: nowrap; justify-content: space-between; }
     .container { padding: 40px 20px 60px; }
-    .stat .val { font-size: 22px; }
+    .stat .val { font-size: 20px; }
+    .stat .lbl { font-size: 8px; letter-spacing: 1px; white-space: nowrap; }
   }
 </style>
 </head>
@@ -418,7 +421,7 @@
 </div>
 
 <!-- Dreams view -->
-<div id="view-dreams" style="display:none;flex:1;overflow:hidden;flex-direction:row">
+<div id="view-dreams" style="display:none;flex:1;overflow:hidden;flex-direction:column">
   <div class="mobile-cont-select">
     <select id="mobile-select-dreams" onchange="selectDream(this.value)">
       <option value="">— select —</option>
