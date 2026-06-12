@@ -21,7 +21,7 @@ jobs:
           assert 'lastUpdated' in d, 'missing lastUpdated'
           assert 'stats' in d, 'missing stats'
           assert 'feed' in d, 'missing feed array'
-          print('feed.json valid — stats:', d['stats'])
+          print('feed.json valid -- stats:', d['stats'])
           "
 
       - name: Validate contemplations/data.json
@@ -50,7 +50,7 @@ jobs:
       - name: Validate dreams/dreams.json
         run: |
           python3 -c "
-          import json, sys
+          import json
           with open('dreams/dreams.json') as f:
               d = json.load(f)
           print('dreams/dreams.json: valid JSON')
@@ -58,12 +58,13 @@ jobs:
 
       - name: Check no empty markdown files
         run: |
-          empty=0
-          shopt -s nullglob
-          for f in contemplations/*.md dreams/*.md; do
-            if [ ! -s \"\$f\" ]; then
-              echo \"empty: \$f\"
-              empty=1
-            fi
-          done
-          [ \$empty -eq 0 ] && echo 'no empty markdown files' || exit 1
+          python3 - << 'PYEOF'
+          import os, sys, glob
+          files = glob.glob('contemplations/*.md') + glob.glob('dreams/*.md')
+          empty = [f for f in files if os.path.getsize(f) == 0]
+          if empty:
+              for f in empty:
+                  print(f'empty: {f}')
+              sys.exit(1)
+          print(f'checked {len(files)} markdown files, none empty')
+          PYEOF
