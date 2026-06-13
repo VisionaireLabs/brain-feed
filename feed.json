@@ -223,5 +223,19 @@
       "schedule": "",
       "status": "idle"
     }
+  ],
+  "events": [
+    {
+      "type": "self-maintainer-run",
+      "timestamp": "2026-06-13T11:22:27Z",
+      "data": {
+        "status": "clean",
+        "contemplations": 99,
+        "dreams": 379,
+        "daysAlive": 566,
+        "sha": "5fbc6cd",
+        "brainFeedSha": "2c99ec1"
+      }
+    }
   ]
 }
