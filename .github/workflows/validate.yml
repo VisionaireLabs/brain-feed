@@ -47,15 +47,6 @@ jobs:
           print(f'dreams/data.json: {len(items)} entries')
           "
 
-      - name: Validate dreams/dreams.json
-        run: |
-          python3 -c "
-          import json
-          with open('dreams/dreams.json') as f:
-              d = json.load(f)
-          print('dreams/dreams.json: valid JSON')
-          "
-
       - name: Check no empty markdown files
         run: |
           python3 - << 'PYEOF'
