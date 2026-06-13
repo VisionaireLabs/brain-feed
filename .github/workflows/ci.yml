@@ -121,34 +121,6 @@ jobs:
         run: |
           node -e "
             const d = require('./feed.json');
-            const required = ['type', 'content'];
-            let errors = 0;
-            d.feed.forEach((entry, i) => {
-              required.forEach(field => {
-                if (!(field in entry) || entry[field] === undefined) {
-                  console.error('❌ feed[' + i + '] missing field: ' + field);
-                  errors++;
-                }
-              });
-              // Warn (don't fail) on empty time — historical entries may lack it
-              if (!entry.time) {
-                console.warn('⚠️  feed[' + i + '] has empty time field');
-              }
-              // type must be a known value
-              const knownTypes = ['self-maintainer', 'contemplation', 'dream', 'task', 'system'];
-              if (entry.type && !knownTypes.includes(entry.type)) {
-                console.error('❌ feed[' + i + '] unknown type: ' + entry.type + ' (allowed: ' + knownTypes.join(', ') + ')');
-                errors++;
-              }
-            });
-            if (errors > 0) process.exit(1);
-            console.log('✅ feed.json entry schema valid — ' + d.feed.length + ' entries');
-          "
-
-      - name: Validate feed.json entry schema
-        run: |
-          node -e "
-            const d = require('./feed.json');
             const knownTypes = ['self-maintainer', 'brain-feed-update', 'contemplation', 'dream', 'task', 'system'];
             let errors = 0;
             d.feed.forEach((entry, i) => {
