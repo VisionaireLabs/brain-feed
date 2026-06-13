@@ -10,7 +10,7 @@ FEED_JSON="$REPO_ROOT/feed.json"
 node -e "
 const fs = require('fs');
 const d = JSON.parse(fs.readFileSync('$FEED_JSON', 'utf8'));
-const knownTypes = ['self-maintainer', 'brain-feed-update', 'contemplation', 'dream', 'task', 'system'];
+const knownTypes = ['self-maintainer', 'self-maintainer-run', 'brain-feed-update', 'contemplation', 'dream', 'task', 'system'];
 // Expected time format: 'MMM DD, HH:MM UTC' — must contain HH:MM
 const TIME_HAS_CLOCK = /\d{1,2}:\d{2}/;
 // Year-only pattern: 'Jun 13, 2026 UTC' (4-digit year right before UTC, no clock)
@@ -21,7 +21,8 @@ const TIME_MIDNIGHT_UTC = /\b00:00\s+UTC/;
 const FEED_SOFT_CAP = 30;
 let errors = 0;
 d.feed.forEach((entry, i) => {
-  if (!entry.content) { console.error('feed['+i+'] missing content'); errors++; }
+  const hasContent = entry.content || entry.summary;
+  if (!hasContent) { console.error('feed['+i+'] missing content or summary'); errors++; }
   if (!entry.type) { console.error('feed['+i+'] empty type — must be one of: '+knownTypes.join(', ')); errors++; }
   else if (!knownTypes.includes(entry.type)) { console.error('feed['+i+'] unknown type: '+entry.type+' (allowed: '+knownTypes.join(', ')+')'); errors++; }
   if (!entry.time) { console.error('feed['+i+'] empty time — all entries must have a timestamp'); errors++; }
