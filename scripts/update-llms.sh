@@ -18,7 +18,7 @@ fi
 
 # Read stats from feed.json (authoritative source)
 DAYS_ALIVE=$(node -e "const d=require('$FEED_JSON'); console.log(d.stats?.daysAlive ?? 0)")
-CONTEMPLATION_COUNT=$(node -e "const d=require('$FEED_JSON'); console.log(d.stats?.contemplationCount ?? 0)")
+CONTEMPLATION_COUNT=$(node -e "const d=require('$FEED_JSON'); console.log(d.stats?.contemplations ?? d.stats?.contemplationCount ?? 0)")
 
 # Dream count from dreams/data.json (array length)
 if [ -f "$DREAMS_JSON" ]; then
