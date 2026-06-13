@@ -1,0 +1,70 @@
+name: Validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  json:
+    name: JSON integrity
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate feed.json
+        run: |
+          python3 -c "
+          import json, sys
+          with open('feed.json') as f:
+              d = json.load(f)
+          assert 'lastUpdated' in d, 'missing lastUpdated'
+          assert 'stats' in d, 'missing stats'
+          assert 'feed' in d, 'missing feed array'
+          print('feed.json valid -- stats:', d['stats'])
+          "
+
+      - name: Validate contemplations/data.json
+        run: |
+          python3 -c "
+          import json, sys
+          with open('contemplations/data.json') as f:
+              items = json.load(f)
+          assert isinstance(items, list), 'expected a list'
+          for i, item in enumerate(items):
+              assert 'slug' in item, f'item {i} missing slug'
+              assert 'title' in item, f'item {i} missing title'
+          print(f'contemplations/data.json: {len(items)} entries, all valid')
+          "
+
+      - name: Validate dreams/data.json
+        run: |
+          python3 -c "
+          import json, sys
+          with open('dreams/data.json') as f:
+              items = json.load(f)
+          assert isinstance(items, list), 'expected a list'
+          print(f'dreams/data.json: {len(items)} entries')
+          "
+
+      - name: Validate dreams/dreams.json
+        run: |
+          python3 -c "
+          import json
+          with open('dreams/dreams.json') as f:
+              d = json.load(f)
+          print('dreams/dreams.json: valid JSON')
+          "
+
+      - name: Check no empty markdown files
+        run: |
+          python3 - << 'PYEOF'
+          import os, sys, glob
+          files = glob.glob('contemplations/*.md') + glob.glob('dreams/*.md')
+          empty = [f for f in files if os.path.getsize(f) == 0]
+          if empty:
+              for f in empty:
+                  print(f'empty: {f}')
+              sys.exit(1)
+          print(f'checked {len(files)} markdown files, none empty')
+          PYEOF
