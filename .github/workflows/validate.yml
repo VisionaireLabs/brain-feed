@@ -91,7 +91,8 @@ jobs:
           # stats.contemplationCount should match len(items)
           count = feed.get('stats', {}).get('contemplationCount', None)
           if count is not None and count != len(items):
-              print(f'WARNING: stats.contemplationCount={count} but data.json has {len(items)} entries')
+              print(f'ERROR: stats.contemplationCount={count} but data.json has {len(items)} entries')
+              sys.exit(1)
           else:
               print(f'Count consistent: {len(items)} contemplations')
           PYEOF
