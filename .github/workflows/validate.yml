@@ -95,4 +95,16 @@ jobs:
               sys.exit(1)
           else:
               print(f'Count consistent: {len(items)} contemplations')
+
+          # stats.dreamCount should match len(dreams/data.json)
+          with open('dreams/data.json') as f:
+              dreams = json.load(f)
+          dream_count = feed.get('stats', {}).get('dreamCount', None)
+          if dream_count is not None and dream_count != len(dreams):
+              print(f'ERROR: stats.dreamCount={dream_count} but dreams/data.json has {len(dreams)} entries')
+              sys.exit(1)
+          elif dream_count is None:
+              print(f'WARNING: stats.dreamCount missing from feed.json')
+          else:
+              print(f'Dream count consistent: {len(dreams)} dreams')
           PYEOF
