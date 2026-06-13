@@ -123,15 +123,17 @@ jobs:
         run: |
           node -e "
             const d = require('./feed.json');
-            // self-maintainer-run: structured run entries written by the self-maintainer cron
-            // (use summary field instead of content; both are valid content carriers)
+            // Feed entries use 'preview' as the content field.
+            // Legacy 'content' and 'summary' fields are also accepted for backwards compatibility.
             const knownTypes = ['self-maintainer', 'self-maintainer-run', 'brain-feed-update', 'contemplation', 'dream', 'task', 'system'];
             let errors = 0;
             d.feed.forEach((entry, i) => {
-              // content OR summary must be present (self-maintainer-run uses summary)
-              const hasContent = ('content' in entry && entry.content) || ('summary' in entry && entry.summary);
+              // preview OR content OR summary must be present
+              const hasContent = ('preview' in entry && entry.preview) ||
+                                 ('content' in entry && entry.content) ||
+                                 ('summary' in entry && entry.summary);
               if (!hasContent) {
-                console.error('\u274c feed[' + i + '] missing content or summary field');
+                console.error('\u274c feed[' + i + '] missing preview, content, or summary field');
                 errors++;
               }
               if (!('type' in entry)) {
