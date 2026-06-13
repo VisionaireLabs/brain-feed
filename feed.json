@@ -13,10 +13,10 @@
   },
   "feed": [
     {
-      "type": "self-maintainer-run",
+      "type": "self-maintainer",
       "time": "2026-06-13T09:12:47Z",
       "title": "Self-Maintainer Run",
-      "description": "Health check clean. No open PRs or issues. Corpus 102 docs. Stats: 99 contemplations, 379 dreams, 566 days alive."
+      "content": "Health check clean. No open PRs or issues. Corpus 102 docs. Stats: 99 contemplations, 379 dreams, 566 days alive."
     },
     {
       "type": "brain-feed-update",
