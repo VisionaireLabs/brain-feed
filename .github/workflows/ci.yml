@@ -123,11 +123,15 @@ jobs:
         run: |
           node -e "
             const d = require('./feed.json');
-            const knownTypes = ['self-maintainer', 'brain-feed-update', 'contemplation', 'dream', 'task', 'system'];
+            // self-maintainer-run: structured run entries written by the self-maintainer cron
+            // (use summary field instead of content; both are valid content carriers)
+            const knownTypes = ['self-maintainer', 'self-maintainer-run', 'brain-feed-update', 'contemplation', 'dream', 'task', 'system'];
             let errors = 0;
             d.feed.forEach((entry, i) => {
-              if (!('content' in entry) || !entry.content) {
-                console.error('\u274c feed[' + i + '] missing required field: content');
+              // content OR summary must be present (self-maintainer-run uses summary)
+              const hasContent = ('content' in entry && entry.content) || ('summary' in entry && entry.summary);
+              if (!hasContent) {
+                console.error('\u274c feed[' + i + '] missing content or summary field');
                 errors++;
               }
               if (!('type' in entry)) {
@@ -146,7 +150,7 @@ jobs:
               }
             });
             if (errors > 0) process.exit(1);
-            console.log('\u2705 feed.json entry schema valid — ' + d.feed.length + ' entries, all have type and time');
+            console.log('\u2705 feed.json entry schema valid — ' + d.feed.length + ' entries, all typed and timestamped');
           "
 
       - name: Check shell scripts
