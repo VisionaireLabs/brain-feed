@@ -70,8 +70,8 @@ jobs:
               feed = json.load(f)
           stats = feed.get('stats', {})
 
-          contemplation_count = stats.get('contemplationCount')
-          dream_count = stats.get('dreamCount')
+          contemplation_count = stats.get('contemplations')
+          dream_count = stats.get('dreams')
           days_alive = stats.get('daysAlive')
 
           with open('llms.txt') as f:
@@ -93,9 +93,9 @@ jobs:
 
           errors = []
           if contemplation_count is not None and llms_contemplations != contemplation_count:
-              errors.append(f'contemplationCount: llms.txt={llms_contemplations} feed.json={contemplation_count}')
+              errors.append(f'contemplations: llms.txt={llms_contemplations} feed.json={contemplation_count}')
           if dream_count is not None and llms_dreams != dream_count:
-              errors.append(f'dreamCount: llms.txt={llms_dreams} feed.json={dream_count}')
+              errors.append(f'dreams: llms.txt={llms_dreams} feed.json={dream_count}')
           if days_alive is not None and llms_days != days_alive:
               errors.append(f'daysAlive: llms.txt={llms_days} feed.json={days_alive}')
 
@@ -128,10 +128,10 @@ jobs:
                   sys.exit(1)
               print(f'Slug consistent: {feed_slug!r}')
 
-          # stats.contemplationCount should match len(items)
-          count = feed.get('stats', {}).get('contemplationCount', None)
+          # stats.contemplations should match len(items)
+          count = feed.get('stats', {}).get('contemplations', None)
           if count is not None and count != len(items):
-              print(f'ERROR: stats.contemplationCount={count} but data.json has {len(items)} entries')
+              print(f'ERROR: stats.contemplations={count} but data.json has {len(items)} entries')
               sys.exit(1)
           else:
               print(f'Count consistent: {len(items)} contemplations')
@@ -139,12 +139,12 @@ jobs:
           # stats.dreamCount should match len(dreams/data.json)
           with open('dreams/data.json') as f:
               dreams = json.load(f)
-          dream_count = feed.get('stats', {}).get('dreamCount', None)
+          dream_count = feed.get('stats', {}).get('dreams', None)
           if dream_count is None:
-              print(f'ERROR: stats.dreamCount missing from feed.json')
+              print(f'ERROR: stats.dreams missing from feed.json')
               sys.exit(1)
           elif dream_count != len(dreams):
-              print(f'ERROR: stats.dreamCount={dream_count} but dreams/data.json has {len(dreams)} entries')
+              print(f'ERROR: stats.dreams={dream_count} but dreams/data.json has {len(dreams)} entries')
               sys.exit(1)
           else:
               print(f'Dream count consistent: {len(dreams)} dreams')

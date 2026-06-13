@@ -29,7 +29,7 @@ jobs:
               console.error('❌ feed.json missing keys:', missing.join(', '));
               process.exit(1);
             }
-            const statsRequired = ['daysAlive', 'contemplationCount'];
+            const statsRequired = ['daysAlive', 'contemplations'];
             const statsMissing = statsRequired.filter(k => !(k in d.stats));
             if (statsMissing.length > 0) {
               console.error('❌ feed.json stats missing keys:', statsMissing.join(', '));
@@ -88,7 +88,7 @@ jobs:
             const feed = require('./feed.json');
             const llms = fs.readFileSync('./llms.txt', 'utf8');
 
-            const expectedContemplations = feed.stats.contemplationCount;
+            const expectedContemplations = feed.stats.contemplations;
             const expectedDays = feed.stats.daysAlive;
 
             const contemplationMatch = llms.match(/(\d+) contemplations published/);
