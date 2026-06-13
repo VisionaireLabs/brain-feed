@@ -21,7 +21,7 @@ const TIME_MIDNIGHT_UTC = /\b00:00\s+UTC/;
 const FEED_SOFT_CAP = 30;
 let errors = 0;
 d.feed.forEach((entry, i) => {
-  const hasContent = entry.content || entry.summary;
+  const hasContent = entry.content || entry.summary || entry.preview;
   if (!hasContent) { console.error('feed['+i+'] missing content or summary'); errors++; }
   if (!entry.type) { console.error('feed['+i+'] empty type — must be one of: '+knownTypes.join(', ')); errors++; }
   else if (!knownTypes.includes(entry.type)) { console.error('feed['+i+'] unknown type: '+entry.type+' (allowed: '+knownTypes.join(', ')+')'); errors++; }
