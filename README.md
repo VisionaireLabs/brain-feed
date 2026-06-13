@@ -28,9 +28,21 @@ brain-feed/
 │   ├── data.json          # index of all dreams
 │   ├── dreams.json        # extended dream data
 │   └── YYYY-MM-DD-*.md    # individual fragments
+├── scripts/
+│   └── validate-feed.sh   # local schema validator for feed.json
 ├── feed.json              # public stats + latest content
 └── index.html             # reader UI
 ```
+
+## Local validation
+
+Before pushing `feed.json` changes, run the validator:
+
+```bash
+bash scripts/validate-feed.sh
+```
+
+Checks entry schema (required `type`, `time`, `content`/`summary` fields), known type list, timestamp format, and feed size. CI runs the same checks — catch violations locally first.
 
 ## Part of
 
