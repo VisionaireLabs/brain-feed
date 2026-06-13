@@ -29,58 +29,13 @@
     },
     {
       "type": "self-maintainer",
-      "time": "",
-      "content": "health clean 8/8, corpus 102 docs, brain-feed pushed b4e7550"
-    },
-    {
-      "type": "self-maintainer",
-      "time": "",
-      "content": "Health clean 8/8 files 8/8 scripts. No open PRs or issues. brain-feed feed.json pushed e185699. 99 contemplations 379 dreams 566 days."
-    },
-    {
-      "type": "self-maintainer",
-      "time": "",
-      "content": "health clean, stats: 99 contemplations 379 dreams 566 days, brain-feed pushed 78e89f1"
-    },
-    {
-      "type": "self-maintainer",
       "time": "Jun 13, 05:09 UTC",
       "content": "Self-maintainer run: health clean (8/8 files, 8/8 scripts), brain-feed feed.json updated and pushed (17bbaba), feed.json.new cleaned up"
     },
     {
       "type": "self-maintainer",
-      "time": "",
-      "content": "Health check clean. No PRs/issues. brain-feed feed.json updated ad75ca9."
-    },
-    {
-      "type": "self-maintainer",
-      "time": "",
-      "content": "Fixed stats.mjs brain-feed path bug. 99 contemplations, 379 dreams now reported correctly. Commits: Visionaire 91b0732, brain-feed 3a8834d"
-    },
-    {
-      "type": "self-maintainer",
-      "time": "",
-      "content": "Pulled Visionaire to 7c6b3d5 (corpus rebuild 82→100 docs, CHANGELOG fix). Health clean (8/8 files, 8/8 scripts). No open PRs after merge. brain-feed feed.json updated (ba90aa5)."
-    },
-    {
-      "type": "self-maintainer",
-      "time": "",
-      "content": "health clean, no open PRs/issues, feed.json pushed ad9a681"
-    },
-    {
-      "type": "self-maintainer",
       "time": "Jun 13, 02:20 UTC",
       "content": "Merged PR #24 (remove .next artifacts) and PR #25 (fix brain-feed URLs). Visionaire health clean. brain-feed feed.json updated (99afb7e)."
-    },
-    {
-      "type": "self-maintainer",
-      "time": "",
-      "content": "health clean, dreamCount PR merged, feed.json pushed e758c92"
-    },
-    {
-      "type": "self-maintainer",
-      "time": "",
-      "content": "Autopilot run 834739d0: Visionaire health clean (6/6 files, 8/8 scripts), pulled dbcef5b+9e662c0 (.js validation fix), brain-feed synced and pushed (034f7db)"
     },
     {
       "type": "self-maintainer",
