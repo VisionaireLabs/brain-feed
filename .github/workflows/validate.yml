@@ -157,3 +157,50 @@ jobs:
           else:
               print(f'Dream count consistent: {len(dreams)} dreams')
           PYEOF
+
+      - name: Check feed.json entries are newest-first
+        run: |
+          python3 - << 'PYEOF'
+          import json, sys, re
+          from datetime import datetime
+
+          with open('feed.json') as f:
+              d = json.load(f)
+
+          feed = d.get('feed', [])
+          if len(feed) < 2:
+              print(f'feed has {len(feed)} entries, skipping order check')
+              sys.exit(0)
+
+          def parse_time(t):
+              # Matches "Jun 13, 08:12 UTC"
+              m = re.match(r'(\w+ \d+), (\d+:\d+) UTC', t or '')
+              if not m:
+                  return None
+              try:
+                  return datetime.strptime(f'{m.group(1)} 2026 {m.group(2)}', '%b %d %Y %H:%M')
+              except ValueError:
+                  return None
+
+          errors = []
+          prev_t = None
+          prev_time_str = ''
+          for i, entry in enumerate(feed):
+              t = parse_time(entry.get('time', ''))
+              if t is None:
+                  continue  # skip entries without parseable time
+              if prev_t is not None and t > prev_t:
+                  errors.append(
+                      f'entry[{i}] time={entry["time"]!r} is newer than entry[{i-1}] time={prev_time_str!r} — not newest-first'
+                  )
+              prev_t = t
+              prev_time_str = entry.get('time', '')
+
+          if errors:
+              print('ERROR: feed entries are not newest-first:')
+              for e in errors:
+                  print(f'  {e}')
+              sys.exit(1)
+
+          print(f'feed ordering OK: {len(feed)} entries, newest-first verified')
+          PYEOF
