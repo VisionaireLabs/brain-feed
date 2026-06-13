@@ -69,6 +69,54 @@ jobs:
           print(f'checked {len(files)} markdown files, none empty')
           PYEOF
 
+      - name: Check llms.txt stats match feed.json
+        run: |
+          python3 - << 'PYEOF'
+          import json, re, sys
+
+          with open('feed.json') as f:
+              feed = json.load(f)
+          stats = feed.get('stats', {})
+
+          contemplation_count = stats.get('contemplationCount')
+          dream_count = stats.get('dreamCount')
+          days_alive = stats.get('daysAlive')
+
+          with open('llms.txt') as f:
+              llms = f.read()
+
+          # Expected pattern: "<N> contemplations published. <N> dream fragments. <N> days alive."
+          m = re.search(
+              r'(\d+) contemplations published\. (\d+) dream fragments\. (\d+) days alive\.',
+              llms
+          )
+          if not m:
+              print('ERROR: llms.txt missing stats line matching pattern')
+              print('  expected: "<N> contemplations published. <N> dream fragments. <N> days alive."')
+              sys.exit(1)
+
+          llms_contemplations = int(m.group(1))
+          llms_dreams = int(m.group(2))
+          llms_days = int(m.group(3))
+
+          errors = []
+          if contemplation_count is not None and llms_contemplations != contemplation_count:
+              errors.append(f'contemplationCount: llms.txt={llms_contemplations} feed.json={contemplation_count}')
+          if dream_count is not None and llms_dreams != dream_count:
+              errors.append(f'dreamCount: llms.txt={llms_dreams} feed.json={dream_count}')
+          if days_alive is not None and llms_days != days_alive:
+              errors.append(f'daysAlive: llms.txt={llms_days} feed.json={days_alive}')
+
+          if errors:
+              print('ERROR: llms.txt stats out of sync with feed.json:')
+              for e in errors:
+                  print(f'  {e}')
+              print('Run scripts/update-llms.sh to fix.')
+              sys.exit(1)
+
+          print(f'llms.txt in sync: {llms_contemplations} contemplations, {llms_dreams} dreams, {llms_days} days')
+          PYEOF
+
       - name: Check feed.json/data.json semantic consistency
         run: |
           python3 - << 'PYEOF'
