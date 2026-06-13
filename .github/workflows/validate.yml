@@ -162,7 +162,7 @@ jobs:
         run: |
           python3 - << 'PYEOF'
           import json, sys, re
-          from datetime import datetime
+          from datetime import datetime, timezone
 
           with open('feed.json') as f:
               d = json.load(f)
@@ -172,15 +172,21 @@ jobs:
               print(f'feed has {len(feed)} entries, skipping order check')
               sys.exit(0)
 
+          CURRENT_YEAR = datetime.now(timezone.utc).year
+
           def parse_time(t):
               # Matches "Jun 13, 08:12 UTC"
               m = re.match(r'(\w+ \d+), (\d+:\d+) UTC', t or '')
               if not m:
                   return None
-              try:
-                  return datetime.strptime(f'{m.group(1)} 2026 {m.group(2)}', '%b %d %Y %H:%M')
-              except ValueError:
-                  return None
+              # Try current year first; fall back to previous year for entries
+              # that cross a year boundary (e.g. Dec 31 entry compared Jan 1).
+              for year in (CURRENT_YEAR, CURRENT_YEAR - 1):
+                  try:
+                      return datetime.strptime(f'{m.group(1)} {year} {m.group(2)}', '%b %d %Y %H:%M')
+                  except ValueError:
+                      continue
+              return None
 
           errors = []
           prev_t = None
