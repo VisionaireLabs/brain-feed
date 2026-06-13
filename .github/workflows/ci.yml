@@ -145,6 +145,36 @@ jobs:
             console.log('✅ feed.json entry schema valid — ' + d.feed.length + ' entries');
           "
 
+      - name: Validate feed.json entry schema
+        run: |
+          node -e "
+            const d = require('./feed.json');
+            const knownTypes = ['self-maintainer', 'brain-feed-update', 'contemplation', 'dream', 'task', 'system'];
+            let errors = 0;
+            d.feed.forEach((entry, i) => {
+              if (!('content' in entry) || !entry.content) {
+                console.error('\u274c feed[' + i + '] missing required field: content');
+                errors++;
+              }
+              if (!('type' in entry)) {
+                console.error('\u274c feed[' + i + '] missing required field: type');
+                errors++;
+              } else if (!entry.type) {
+                console.error('\u274c feed[' + i + '] empty type — must be one of: ' + knownTypes.join(', '));
+                errors++;
+              } else if (!knownTypes.includes(entry.type)) {
+                console.error('\u274c feed[' + i + '] unknown type: ' + entry.type + ' (allowed: ' + knownTypes.join(', ') + ')');
+                errors++;
+              }
+              if (!entry.time) {
+                console.error('\u274c feed[' + i + '] empty time — all feed entries must have a timestamp');
+                errors++;
+              }
+            });
+            if (errors > 0) process.exit(1);
+            console.log('\u2705 feed.json entry schema valid — ' + d.feed.length + ' entries, all have type and time');
+          "
+
       - name: Check shell scripts
         run: |
           shopt -s nullglob
