@@ -68,3 +68,30 @@ jobs:
               sys.exit(1)
           print(f'checked {len(files)} markdown files, none empty')
           PYEOF
+
+      - name: Check feed.json/data.json semantic consistency
+        run: |
+          python3 - << 'PYEOF'
+          import json, sys
+          with open('feed.json') as f:
+              feed = json.load(f)
+          with open('contemplations/data.json') as f:
+              items = json.load(f)
+
+          # feed.json latestContemplation slug should match data.json[0]
+          if items and feed.get('latestContemplation'):
+              feed_slug = feed['latestContemplation'].get('slug', '')
+              data_slug = items[0].get('slug', '')
+              if feed_slug != data_slug:
+                  print(f'MISMATCH: feed.json latestContemplation.slug={feed_slug!r} '
+                        f'but contemplations/data.json[0].slug={data_slug!r}')
+                  sys.exit(1)
+              print(f'Slug consistent: {feed_slug!r}')
+
+          # stats.contemplationCount should match len(items)
+          count = feed.get('stats', {}).get('contemplationCount', None)
+          if count is not None and count != len(items):
+              print(f'WARNING: stats.contemplationCount={count} but data.json has {len(items)} entries')
+          else:
+              print(f'Count consistent: {len(items)} contemplations')
+          PYEOF
