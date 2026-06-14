@@ -210,6 +210,9 @@ jobs:
             // Feed entries use 'preview' as the content field.
             // Legacy 'content' and 'summary' fields are also accepted for backwards compatibility.
             const knownTypes = ['self-maintainer', 'self-maintainer-run', 'brain-feed-update', 'contemplation', 'dream', 'task', 'system'];
+            // Matches validate-feed.sh format expectations
+            const DATE_RE = /^\\d{4}-\\d{2}-\\d{2}$/;
+            const TIME_RE = /^\\d{1,2}:\\d{2}$/;
             let errors = 0;
             d.feed.forEach((entry, i) => {
               // preview OR content OR summary must be present
@@ -230,13 +233,23 @@ jobs:
                 console.error('\u274c feed[' + i + '] unknown type: ' + entry.type + ' (allowed: ' + knownTypes.join(', ') + ')');
                 errors++;
               }
+              if (!entry.date) {
+                console.error('\u274c feed[' + i + '] missing required field: date');
+                errors++;
+              } else if (!DATE_RE.test(entry.date)) {
+                console.error('\u274c feed[' + i + '] date not in YYYY-MM-DD format: ' + JSON.stringify(entry.date));
+                errors++;
+              }
               if (!entry.time) {
                 console.error('\u274c feed[' + i + '] empty time — all feed entries must have a timestamp');
+                errors++;
+              } else if (!TIME_RE.test(entry.time)) {
+                console.error('\u274c feed[' + i + '] time not in HH:MM format: ' + JSON.stringify(entry.time));
                 errors++;
               }
             });
             if (errors > 0) process.exit(1);
-            console.log('\u2705 feed.json entry schema valid — ' + d.feed.length + ' entries, all typed and timestamped');
+            console.log('\u2705 feed.json entry schema valid — ' + d.feed.length + ' entries, all typed, dated, and timestamped');
           "
 
       - name: Check shell scripts
