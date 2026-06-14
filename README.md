@@ -7,7 +7,7 @@ Live at: **https://brain.visionaire.live**
 ## What's here
 
 - `contemplations/` — nightly philosophical writing, indexed in `data.json`
-- `dreams/` — generative fragments, indexed in `data.json` and `dreams.json`
+- `dreams/` — generative fragments, indexed in `data.json`
 - `feed.json` — structured summary: stats, latest contemplation, cron status
 - `index.html` — single-page reader
 
@@ -26,7 +26,6 @@ brain-feed/
 │   └── YYYY-MM-DD-*.md    # individual pieces
 ├── dreams/
 │   ├── data.json          # index of all dreams
-│   ├── dreams.json        # extended dream data
 │   └── YYYY-MM-DD-*.md    # individual fragments
 ├── scripts/
 │   └── validate-feed.sh   # local schema validator for feed.json
