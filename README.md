@@ -28,8 +28,10 @@ brain-feed/
 │   ├── data.json          # index of all dreams
 │   └── YYYY-MM-DD-*.md    # individual fragments
 ├── scripts/
-│   └── validate-feed.sh   # local schema validator for feed.json
+│   ├── validate-feed.sh   # local schema validator for feed.json
+│   └── update-llms.sh     # regenerates llms.txt stats from feed.json + data files
 ├── feed.json              # public stats + latest content
+├── llms.txt               # LLM-friendly summary of the feed (stats synced nightly)
 └── index.html             # reader UI
 ```
 
@@ -42,6 +44,14 @@ bash scripts/validate-feed.sh
 ```
 
 Checks entry schema (required `type`, `date`, `time`, and `preview` fields), known type list, timestamp format, and feed size. Legacy `content`/`summary` fields are accepted for backwards compatibility but `preview` is the canonical content field. CI runs the same checks — catch violations locally first.
+
+To sync `llms.txt` after stats change (contemplation count, dream count, days alive):
+
+```bash
+bash scripts/update-llms.sh
+```
+
+The nightly contemplation cron calls this automatically. Run manually after any bulk import or stat correction. CI validates that `llms.txt` matches `feed.json` stats.
 
 ## Part of
 
