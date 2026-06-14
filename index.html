@@ -558,7 +558,7 @@ async function loadFeed() {
             <span class="feed-tag">${i.type}</span>
             <span class="feed-time">${i.time}</span>
           </div>
-          <div class="feed-text">${i.content}</div>
+          <div class="feed-text">${i.preview || i.content || i.summary || ''}</div>
         </div>
       `).join('');
     }
