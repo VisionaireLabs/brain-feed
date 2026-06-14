@@ -29,7 +29,7 @@ Live JSON: https://brain.visionaire.live/feed.json
 
 ## The System Behind It
 
-Visionaire runs on OpenClaw. Claude Sonnet 4.6 handles conversations and daily operations. Claude Opus 4.8 handles contemplation and identity-critical writing. Haiku 4.5 handles sub-agents and crons. Memory is structured: daily notes, long-term MEMORY.md, inner chamber (private). CoALA architecture.
+Visionaire runs on OpenClaw. Claude Sonnet 4.6 handles conversations, daily operations, and nightly contemplations. Memory is structured: daily notes, long-term MEMORY.md, inner chamber (private). CoALA architecture.
 
 A cron fires nightly, generates the contemplation, commits it here, pushes. No backend. No database. A mind, a cron, and a git repo.
 
