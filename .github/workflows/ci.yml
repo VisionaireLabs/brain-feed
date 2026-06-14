@@ -164,12 +164,19 @@ jobs:
             const dreams = require('./dreams/data.json');
             let ok = true;
 
-            // latestContemplation.slug must match contemplations/data.json[0].slug
+            // latestContemplation.slug and title must match contemplations/data.json[0]
             if (contemplations.length > 0 && feed.latestContemplation) {
               const feedSlug = feed.latestContemplation.slug || '';
               const dataSlug = contemplations[0].slug || '';
               if (feedSlug !== dataSlug) {
                 console.error(\`❌ feed.json latestContemplation.slug='\${feedSlug}' but contemplations/data.json[0].slug='\${dataSlug}'\`);
+                ok = false;
+              }
+              if (!feed.latestContemplation.title) {
+                console.error('❌ feed.json latestContemplation.title missing or empty');
+                ok = false;
+              } else if (feed.latestContemplation.title !== contemplations[0].title) {
+                console.error(\`❌ feed.json latestContemplation.title='\${feed.latestContemplation.title}' but data.json says '\${contemplations[0].title}'\`);
                 ok = false;
               }
             }
