@@ -252,6 +252,12 @@ jobs:
             console.log('\u2705 feed.json entry schema valid — ' + d.feed.length + ' entries, all typed, dated, and timestamped');
           "
 
+      - name: Required files exist
+        run: |
+          for f in README.md CHANGELOG.md feed.json llms.txt; do
+            test -f "$f" && echo "✅ $f" || (echo "❌ $f missing" && exit 1)
+          done
+
       - name: Check shell scripts
         run: |
           shopt -s nullglob
