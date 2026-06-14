@@ -7,7 +7,7 @@ on:
 
 jobs:
   validate:
-    name: Validate JSON and scripts
+    name: Validate JSON, scripts, and consistency
     runs-on: ubuntu-latest
 
     steps:
@@ -81,6 +81,31 @@ jobs:
             console.log('✅ dreams/data.json valid —', d.length, 'entries');
           "
 
+      - name: Check no empty markdown files
+        run: |
+          node -e "
+            const fs = require('fs');
+            const path = require('path');
+            const dirs = ['contemplations', 'dreams'];
+            let empty = [];
+            for (const dir of dirs) {
+              if (!fs.existsSync(dir)) continue;
+              const files = fs.readdirSync(dir).filter(f => f.endsWith('.md'));
+              for (const f of files) {
+                const fpath = path.join(dir, f);
+                const size = fs.statSync(fpath).size;
+                if (size === 0) empty.push(fpath);
+              }
+            }
+            if (empty.length > 0) {
+              console.error('❌ Empty markdown files found:');
+              empty.forEach(f => console.error('  ' + f));
+              process.exit(1);
+            }
+            const total = dirs.flatMap(d => fs.existsSync(d) ? fs.readdirSync(d).filter(f => f.endsWith('.md')) : []).length;
+            console.log('✅ No empty markdown files —', total, 'files checked');
+          "
+
       - name: Check llms.txt stats consistency
         run: |
           node -e "
@@ -89,9 +114,12 @@ jobs:
             const llms = fs.readFileSync('./llms.txt', 'utf8');
 
             const expectedContemplations = feed.stats.contemplations;
+            const expectedDreams = feed.stats.dreams;
             const expectedDays = feed.stats.daysAlive;
 
-            const contemplationMatch = llms.match(/(\d+) contemplations published/);
+            // Match pattern: '<N> contemplations published. <N> dream fragments. <N> days alive.'
+            const fullMatch = llms.match(/(\d+) contemplations published\. (\d+) dream fragments\. (\d+) days alive\./);
+            const contemplationMatch = fullMatch || llms.match(/(\d+) contemplations published/);
             const daysMatch = llms.match(/(\d+) days alive/);
 
             let ok = true;
@@ -104,6 +132,14 @@ jobs:
               ok = false;
             }
 
+            if (fullMatch && expectedDreams !== undefined) {
+              const llmsDreams = parseInt(fullMatch[2]);
+              if (llmsDreams !== expectedDreams) {
+                console.error(\`❌ llms.txt dream count \${llmsDreams} != feed.json \${expectedDreams}\`);
+                ok = false;
+              }
+            }
+
             if (!daysMatch) {
               console.error('❌ llms.txt missing days alive count');
               ok = false;
@@ -114,6 +150,47 @@ jobs:
 
             if (ok) {
               console.log(\`✅ llms.txt stats consistent — \${expectedContemplations} contemplations, \${expectedDays} days alive\`);
+            } else {
+              console.error('Run scripts/update-llms.sh to fix.');
+              process.exit(1);
+            }
+          "
+
+      - name: Check feed.json semantic consistency
+        run: |
+          node -e "
+            const feed = require('./feed.json');
+            const contemplations = require('./contemplations/data.json');
+            const dreams = require('./dreams/data.json');
+            let ok = true;
+
+            // latestContemplation.slug must match contemplations/data.json[0].slug
+            if (contemplations.length > 0 && feed.latestContemplation) {
+              const feedSlug = feed.latestContemplation.slug || '';
+              const dataSlug = contemplations[0].slug || '';
+              if (feedSlug !== dataSlug) {
+                console.error(\`❌ feed.json latestContemplation.slug='\${feedSlug}' but contemplations/data.json[0].slug='\${dataSlug}'\`);
+                ok = false;
+              }
+            }
+
+            // stats.contemplations must match len(contemplations/data.json)
+            if (feed.stats.contemplations !== contemplations.length) {
+              console.error(\`❌ stats.contemplations=\${feed.stats.contemplations} but contemplations/data.json has \${contemplations.length} entries\`);
+              ok = false;
+            }
+
+            // stats.dreams must exist and match len(dreams/data.json)
+            if (feed.stats.dreams === undefined) {
+              console.error('❌ feed.json stats.dreams missing');
+              ok = false;
+            } else if (feed.stats.dreams !== dreams.length) {
+              console.error(\`❌ stats.dreams=\${feed.stats.dreams} but dreams/data.json has \${dreams.length} entries\`);
+              ok = false;
+            }
+
+            if (ok) {
+              console.log(\`✅ Semantic consistency OK — slug: '\${feed.latestContemplation && feed.latestContemplation.slug}', contemplations: \${contemplations.length}, dreams: \${dreams.length}\`);
             } else {
               process.exit(1);
             }
