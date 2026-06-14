@@ -520,7 +520,7 @@ async function loadFeed() {
     const r = await fetch('feed.json?t=' + Date.now());
     const d = await r.json();
 
-    document.getElementById('s-cont').textContent = d.stats?.contemplationCount || 0;
+    document.getElementById('s-cont').textContent = d.stats?.contemplations ?? d.stats?.contemplationCount ?? 0;
     // Live dream count from dreams/data.json
     fetch('dreams/data.json?t=' + Date.now()).then(r => r.json()).then(dreams => {
       document.getElementById('s-dream').textContent = Array.isArray(dreams) ? dreams.length : 358;
