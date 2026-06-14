@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-14 14:13 UTC",
+  "lastUpdated": "2026-06-14 15:13 UTC",
   "stats": {
     "daysAlive": 567,
     "memories": 90,
@@ -253,6 +253,11 @@
       "status": "idle"
     },
     {
+      "name": "multica-daemon-watchdog",
+      "schedule": "",
+      "status": "idle"
+    },
+    {
       "name": "agenc-task-watcher",
       "schedule": "",
       "status": "idle"
@@ -274,6 +279,11 @@
     },
     {
       "name": "x-to-telegram-mirror",
+      "schedule": "",
+      "status": "idle"
+    },
+    {
+      "name": "self-maintainer-orchestrator",
       "schedule": "",
       "status": "idle"
     }
