@@ -42,7 +42,7 @@ Before pushing `feed.json` changes, run the validator:
 bash scripts/validate-feed.sh
 ```
 
-Checks entry schema (required `type`, `time`, `content`/`summary` fields), known type list, timestamp format, and feed size. CI runs the same checks — catch violations locally first.
+Checks entry schema (required `type`, `date`, `time`, and `preview` fields), known type list, timestamp format, and feed size. Legacy `content`/`summary` fields are accepted for backwards compatibility but `preview` is the canonical content field. CI runs the same checks — catch violations locally first.
 
 ## Part of
 
